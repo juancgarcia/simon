@@ -8,30 +8,33 @@ var yellow = $('#yellow')
 var gameSequence = []
 var colorSequence = ['#green', '#blue', '#red', '#yellow' ]
 var userSequence = []
+var level = 4
+var turn = 0
 
 function randomColors() {
 
-  for (i = 0; i < colorSequence.length; i++){
+  for (i = 0; i < level ; i++){
     var number = Math.floor(Math.random() * 4)
     gameSequence.push(colorSequence[number])
   }
 }
 
-function nextLevel() {
-  var addColor = Math.floor(Math.random() * 4)
-  gameSequence.push(colorSequence[addColor])
-  counter = 0
-  for (i = 0; i < gameSequence.length; i++) {
-    var number = Math.floor(Math.random() * gameSequence.length)
-    var thisColor = gameSequence[number]
-    gameSequence.push(thisColor)
-    gameSequence.shift()
-  }
-}
+// function nextLevel() {
+//   var addColor = Math.floor(Math.random() * 4)
+//   gameSequence.push(colorSequence[addColor])
+//   counter = 0
+//   for (i = 0; i < gameSequence.length; i++) {
+//     var number = Math.floor(Math.random() * gameSequence.length)
+//     var thisColor = gameSequence[number]
+//     gameSequence.push(thisColor)
+//     gameSequence.shift()
+//   }
+// }
 
 
 randomColors()
 var counter = 0
+
 function startGame() {
     var thisSquare = gameSequence[counter]
     var lastSquare = gameSequence[counter-1]
@@ -55,8 +58,20 @@ $('html').keydown(function(e) {
     red.css('opacity', '1')
     setTimeout(function() {
       red.css('opacity', '.5')}, 200)
-    if (userSequence.length === gameSequence.length) {
-      endLevel()
+    if (userSequence[turn] === gameSequence[turn]) {
+      turn++
+      if (userSequence.length === gameSequence.length) {
+        endLevel()
+      }
+    }
+    else {
+      console.log('Wrong')
+      userSequence = []
+      gameSequence = []
+      turn = 0
+      counter = 0
+      level = 4
+      randomColors()
     }
   }
 })
@@ -68,10 +83,21 @@ $('html').keydown(function(e) {
     blue.css('opacity', '1')
     setTimeout(function() {
       blue.css('opacity', '.5')}, 200)
-      if (userSequence.length === gameSequence.length) {
-        endLevel()
+      if (userSequence[turn] === gameSequence[turn]) {
+        turn++
+        if (userSequence.length === gameSequence.length) {
+          endLevel()
+        }
       }
-
+      else {
+        console.log('Wrong')
+        userSequence = []
+        gameSequence = []
+        turn = 0
+        counter = 0
+        level = 4
+        randomColors()
+      }
   }
 })
 
@@ -81,10 +107,21 @@ $('html').keydown(function(e) {
     green.css('opacity', '1')
     setTimeout(function() {
       green.css('opacity', '.5')}, 200)
-      if (userSequence.length === gameSequence.length) {
-        endLevel()
+      if (userSequence[turn] === gameSequence[turn]) {
+        turn++
+        if (userSequence.length === gameSequence.length) {
+          endLevel()
+        }
       }
-
+      else {
+        console.log('Wrong')
+        userSequence = []
+        gameSequence = []
+        turn = 0
+        counter = 0
+        level = 4
+        randomColors()
+      }
   }
 })
 
@@ -94,8 +131,20 @@ $('html').keydown(function(e) {
     yellow.css('opacity', '1')
     setTimeout(function() {
       yellow.css('opacity', '.5')}, 200)
-      if (userSequence.length === gameSequence.length) {
-        endLevel()
+      if (userSequence[turn] === gameSequence[turn]) {
+        turn++
+        if (userSequence.length === gameSequence.length) {
+          endLevel()
+        }
+      }
+      else {
+        console.log('Wrong')
+        userSequence = []
+        gameSequence = []
+        turn = 0
+        counter = 0
+        level = 4
+        randomColors()
       }
 
   }
@@ -109,6 +158,10 @@ function endLevel() {
   if (JSON.stringify(userSequence) === JSON.stringify(gameSequence)) {
     console.log('You Win')
     userSequence = []
-    nextLevel()
+    gameSequence = []
+    counter = 0
+    turn = 0
+    level ++
+    randomColors()
   }
 }
