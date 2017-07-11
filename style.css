@@ -1,0 +1,54 @@
+body {
+  background: black;
+}
+
+#top-row {
+  display:flex;
+  justify-content: center;
+}
+
+#middle-row {
+  display:flex;
+  justify-content:space-around;
+}
+
+#bottom-row {
+  display:flex;
+  justify-content:center;
+}
+
+#blue, #green, #yellow, #red {
+  opacity:.5;
+}
+#blue:hover, #green:hover, #red:hover, #yellow:hover  {
+  opacity:1;
+}
+#red {
+  background: red;
+  height:200px;
+  width:200px;
+}
+
+#container {
+  height:800px;
+  width:800px;
+  margin:auto;
+}
+
+#yellow {
+  background: yellow;
+  height:200px;
+  width:200px;
+}
+
+#blue {
+  background: blue;
+  height:200px;
+  width:200px;
+}
+
+#green {
+  background: green;
+  height:200px;
+  width:200px;
+}
