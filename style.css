@@ -9,7 +9,7 @@ body {
 
 #middle-row {
   display:flex;
-  justify-content:space-around;
+  justify-content:center;
 }
 
 #bottom-row {
@@ -22,6 +22,21 @@ body {
 }
 #blue:hover, #green:hover, #red:hover, #yellow:hover  {
   opacity:1;
+}
+
+#text {
+  color:pink;
+  font-family: Helvetica;
+  text-align: center;
+
+  height:200px;
+  width:200px;
+}
+#prompt{
+
+}
+#level {
+  margin-top:80px;
 }
 #red {
   background: red;
