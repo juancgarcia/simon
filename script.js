@@ -2,6 +2,7 @@ var red = $('#red')
 var blue = $('#blue')
 var green = $('#green')
 var yellow = $('#yellow')
+var timer = $('#timer')
 
 
 
@@ -14,6 +15,8 @@ var counter = 0
 var gameReady = true
 var levelCount = 1
 var userReady = true
+var timeX = 0
+
 
 
 //Randomizes game sequence, the length of which is determined by level
@@ -42,6 +45,9 @@ function evaluate() {
     levelCount = 1
     gameReady = true
     randomColors()
+    clearInterval(time)
+    timeX = 0
+    timer.text('TIMER:00:00')
   }
 }
 
@@ -79,8 +85,8 @@ function startGame() {
 }
 
 
-randomColors()
 
+randomColors()
 
 
 $('html').keydown(function(e) {
@@ -127,7 +133,24 @@ $('html').keydown(function(e) {
 
 $('html').keydown(function(e) {
   if (e.which === 13) {
+    if (gameReady) {
     gameReady = false
     startGame()
   }
+  }
 })
+
+ var time = setInterval(function() { timeFormula() },1000)
+
+function timeFormula() {
+  var seconds = timeX%60
+  if (seconds<10) {
+    var seconds = '0' + seconds
+  } else {seconds = seconds}
+  var minutes = parseInt(timeX/60)
+  if (minutes<10) {
+    var minutes = '0' + minutes
+  } else {minutes = minutes}
+  timer.text('TIMER:' + minutes + ':' + seconds)
+  timeX++
+}
