@@ -1,5 +1,8 @@
 body {
   background: black;
+  font-family: 'Exo', sans-serif;
+  color:pink;
+  text-align: center;
 }
 
 #top-row {
@@ -26,9 +29,7 @@ body {
 }*/
 
 #text {
-  color:pink;
-  font-family: Helvetica;
-  text-align: center;
+
 
   height:200px;
   width:200px;
@@ -45,12 +46,13 @@ body {
   width:200px;
 
 }
+#score {
+  margin-bottom: 5px;
+}
 
 #container {
   height:50px;
   width:100%;
-
-  color:pink;
   text-align: center;
 }
 
