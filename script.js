@@ -18,6 +18,7 @@ var timeX = 0
 var scoreCount = 0
 var newGame = false
 var gameStart = true
+// var effect = $('#effect')
 
 
 $('html').on('keydown', function(gameKey) {
@@ -38,12 +39,14 @@ $('html').on('keydown', function(gameKey) {
           startGame()
         }
       }
+
   // $('html').on('keydown', function(key) {
   //   if (key.which === 13) {
   //     $('#instructions').css('display', 'none')
   //     $('.game').removeClass('game')
   //   }
   // })
+
 }
 }
 })
