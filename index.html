@@ -7,22 +7,30 @@
     <title>Simon</title>
   </head>
   <body>
-    <div id='container'><p id='timer'>TIMER:00:00</p></div>
-    <div id='top-row'>
-      <div id="red"></div>
+
+    <div id = 'titlePage'>
+      <h1> SIMON </h1> <p>Press Enter</p>
     </div>
-    <div id='middle-row'>
-      <div id="blue"></div>
-      <div id="text"><p id="level">Level : 1</p><p id="prompt">Press Enter to Play</p><p id='score'></p></div>
-      <div id="green"></div>
-    </div>
-    <div id="bottom-row">
-      <div id="yellow"></div>
+
+
+    <div class='game'>
+      <div id='container'><p id='timer'>TIMER:00:00</p></div>
+      <div id='top-row'>
+        <div id="red"></div>
+      </div>
+      <div id='middle-row'>
+        <div id="blue"></div>
+        <div id="text"><p id="level">Level : 1</p><p id="prompt">Press Enter to Play</p><p id='score'></p></div>
+        <div id="green"></div>
+      </div>
+      <div id="bottom-row">
+        <div id="yellow"></div>
+      </div>
     </div>
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.js" charset="utf-8"></script>
-  <script src="script.js" charset="utf-8"></script>
-
+<script src="script.js" charset="utf-8"></script>
+<audio id='effect' src='beep_short.mp3' style='display:none;'></audio>
   </body>
 </html>

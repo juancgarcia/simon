@@ -17,6 +17,37 @@ var turnReady = false
 var timeX = 0
 var scoreCount = 0
 var newGame = false
+var gameStart = true
+
+
+$('html').on('keydown', function(gameKey) {
+  if (gameKey.which === 13) {
+    if (gameStart) {
+    gameStart = false
+    $('#titlePage').css('display', 'none')
+    $('.game').removeClass ('game')
+  }
+    else  {
+      if (gameKey.which === 13) {
+        if (level === 2 || newGame) {
+          time = setInterval(function () { timeFormula() }, 1000)
+        }
+        if (gameReady) {
+          $('#score').text('')
+          gameReady = false
+          startGame()
+        }
+      }
+  // $('html').on('keydown', function(key) {
+  //   if (key.which === 13) {
+  //     $('#instructions').css('display', 'none')
+  //     $('.game').removeClass('game')
+  //   }
+  // })
+}
+}
+})
+
 
 // Randomizes game sequence, the length of which is determined by level
 function randomColors () {
@@ -92,12 +123,22 @@ function startGame () {
     $('#level').text(`Level : ${levelCount}`)
     var thisSquare = gameSequence[counter]
     console.log(gameSequence[counter])
+
+    effect.play()
+    setTimeout(function() {
+      effect.pause()
+      effect.load()
+    }, 500)
+  //   effect.load()
+
     setTimeout(function () {
       $(thisSquare).css('opacity', '1')
     }, 200)
+
     setTimeout(function () {
       $(thisSquare).css('opacity', '.5')
     }, 1000)
+
     counter++
     if (counter < gameSequence.length) {
       setTimeout(startGame, 1000)
@@ -112,6 +153,11 @@ $('html').keydown(function (e) {
   if (e.which === 38) {
     e.preventDefault()
     if (turnReady) {
+      effect.play()
+      setTimeout(function() {
+        effect.pause()
+        effect.load()
+      }, 150)
       userSequence.push('#red')
       red.css('opacity', '1')
       setTimeout(function () {
@@ -126,6 +172,11 @@ $('html').keydown(function (e) {
   if (e.which === 37) {
     e.preventDefault()
     if (turnReady) {
+      effect.play()
+      setTimeout(function() {
+        effect.pause()
+        effect.load()
+      }, 150)
       userSequence.push('#blue')
       blue.css('opacity', '1')
       setTimeout(function () {
@@ -140,6 +191,11 @@ $('html').keydown(function (e) {
   if (e.which === 39) {
     e.preventDefault()
     if (turnReady) {
+      effect.play()
+      setTimeout(function() {
+        effect.pause()
+        effect.load()
+      }, 150)
       userSequence.push('#green')
       green.css('opacity', '1')
       setTimeout(function () {
@@ -154,6 +210,11 @@ $('html').keydown(function (e) {
   if (e.which === 40) {
     e.preventDefault()
     if (turnReady) {
+      effect.play()
+      setTimeout(function() {
+        effect.pause()
+        effect.load()
+      }, 150)
       userSequence.push('#yellow')
       yellow.css('opacity', '1')
       setTimeout(function () {
@@ -164,15 +225,17 @@ $('html').keydown(function (e) {
   }
 })
 
-$('html').keydown(function (e) {
-  if (e.which === 13) {
-    if (level === 2 || newGame) {
-      time = setInterval(function () { timeFormula() }, 1000)
-    }
-    if (gameReady) {
-      $('#score').text('')
-      gameReady = false
-      startGame()
-    }
-  }
-})
+// $('html').keydown(function (e) {
+// if (gameStart === false) {
+//   if (e.which === 13) {
+//     if (level === 2 || newGame) {
+//       time = setInterval(function () { timeFormula() }, 1000)
+//     }
+//     if (gameReady) {
+//       $('#score').text('')
+//       gameReady = false
+//       startGame()
+//     }
+//   }
+// }
+// })
