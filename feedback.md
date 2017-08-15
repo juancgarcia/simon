@@ -19,7 +19,9 @@
 
 ## Notes
 
-Great job with this project!
+Great job with this project! I personally appreciate your keyboard interface for the game. I think it's much faster and more intuitive than dragging and clicking a mouse/trackpad. The interface is simple and clean.
+
+As you mentioned, the code can be DRYed up much more. I would also like to see more comments (particularly for unclear values like the keycode numbers) and less commented-out code, unless there is a good reason given for it to remain. Maybe as example of a function's usage, and not just broken/unused code that should be removed.
 
 # Things you'd like specific feedback on:
 
@@ -177,4 +179,55 @@ $('html').keydown(function (e) {
 
 `Also, I felt like I used a lot of global variables. Variables kept getting updated, and then used elsewhere in different functions, so I had to make sure the new values transferred over. Since we're told global variables are bad, how would I get around that?`
 
-<!--  -->
+Global variables aren't bad per se, but they are to be used sparingly. One way to avoid "globals pollution" is to encapsulate your variables into an object literal.
+
+```js
+// example
+var simonGame = {
+  red: $('#red'),
+  blue: $('#blue'),
+  green: $('#green'),
+  yellow: $('#yellow'),
+  timer: $('#timer'),
+  gameSequence: [],
+  colorSequence: [ '#green', '#blue', '#red', '#yellow' ]
+  userSequence: [],
+  level: 2,
+  turn: 0,
+  counter: 0,
+  gameReady: true,
+  levelCount: 1,
+  turnReady: false,
+  timeX: 0,
+  newGame: false,
+  gameStart: true
+}
+```
+
+In this way there's only one global variable, and all values are contained as properties.
+
+We can continue this encapsulation, by converting our global functions into methods on this object:
+
+```js
+
+var simonGame = {
+  red: $('#red'),
+  // ... more properties ...
+  gameSequence: [],
+  colorSequence: [ '#green', '#blue', '#red', '#yellow' ]
+  userSequence: [],
+  level: 2,
+  // ... more properties ...
+
+  // methods
+  randomColors: function () {
+    // variables changed to reference `this` instead of globals
+    for (i = 0; i < this.level; i++) {
+      var number = Math.floor(Math.random() * 4)
+      this.gameSequence.push(this.colorSequence[number])
+    }
+  },
+
+  // more methods ...
+}
+```

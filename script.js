@@ -1,21 +1,31 @@
-var red = $('#red')
-var blue = $('#blue')
-var green = $('#green')
-var yellow = $('#yellow')
+// Repeating strings in multiple places can introduce the opportunity for errors
+// Here I've set the string id selectors to their own variables.
+var redSelector = '#red'
+var blueSelector = '#blue'
+var greenSelector = '#green'
+var yellowSelector = '#yellow'
+// Here I've replaced the string id selectors with the newly defined variables.
+var red = $(redSelector)
+var blue = $(blueSelector)
+var green = $(greenSelector)
+var yellow = $(yellowSelector)
 var timer = $('#timer')
 
 var gameSequence = []
-var colorSequence = ['#green', '#blue', '#red', '#yellow' ]
+// Here I've replaced the string id selectors with the newly defined variables.
+var colorSequence = [ greenSelector, blueSelector, redSelector, yellowSelector ]
 var userSequence = []
 var level = 2
 var turn = 0
 var counter = 0
 var gameReady = true
 var levelCount = 1
-var userReady = true
+// variable never used
+// var userReady = true
 var turnReady = false
 var timeX = 0
-var scoreCount = 0
+// variable never used
+// var scoreCount = 0
 var newGame = false
 var gameStart = true
 
@@ -23,11 +33,10 @@ var gameStart = true
 $('html').on('keydown', function(gameKey) {
   if (gameKey.which === 13) {
     if (gameStart) {
-    gameStart = false
-    $('#titlePage').css('display', 'none')
-    $('.game').removeClass ('game')
-  }
-    else  {
+      gameStart = false
+      $('#titlePage').css('display', 'none')
+      $('.game').removeClass ('game')
+    } else {
       if (gameKey.which === 13) {
         if (level === 2 || newGame) {
           time = setInterval(function () { timeFormula() }, 1000)
@@ -38,16 +47,28 @@ $('html').on('keydown', function(gameKey) {
           startGame()
         }
       }
+  // Commented out code should be left out of master unless there are details
+  // added describing why it should remain.
+
   // $('html').on('keydown', function(key) {
   //   if (key.which === 13) {
   //     $('#instructions').css('display', 'none')
   //     $('.game').removeClass('game')
   //   }
   // })
-}
-}
+    }
+  }
 })
 
+// Reset game data
+function resetGame () {
+  userSequence = []
+  gameSequence = []
+  randomColors()
+  turn = 0
+  counter = 0
+  gameReady = true
+}
 
 // Randomizes game sequence, the length of which is determined by level
 function randomColors () {
@@ -82,14 +103,10 @@ function evaluate () {
     $('#prompt').text('Wrong Input. Press Enter to play again')
     var scoreCount = Math.floor((level * 100) + ((timeX * 100) / 5))
     $('#score').text('Your Score: ' + scoreCount)
-    userSequence = []
-    gameSequence = []
-    turn = 0
-    counter = 0
     level = 2
     levelCount = 1
-    gameReady = true
-    randomColors()
+    // DRYing code be moving common code into a function
+    resetGame()
     clearInterval(time)
     timeX = 0
     timer.text('TIMER:00:00')
@@ -101,19 +118,20 @@ function evaluate () {
 function endLevel () {
   if (JSON.stringify(userSequence) === JSON.stringify(gameSequence)) {
     console.log('You Win')
-    userSequence = []
-    gameSequence = []
-    counter = 0
-    turn = 0
-    gameReady = true
     level++
     levelCount++
-    randomColors()
+    // DRYing code be moving common code into a function
+    resetGame()
     var scoreCount = Math.floor((level * 100) + ((timeX * 100) / 5))
     $('#score').text('Your Score: ' + scoreCount)
     $('#prompt').text('Level Complete! Press Enter to move on')
   }
 }
+
+
+// There are some similarities between your startGame() function and the new
+// pressArrow() function. Can you see how parts of these functions can be
+// abstracted out to DRY up the code?
 
 // lights up colors blocks according to random color array
 function startGame () {
@@ -142,7 +160,11 @@ function startGame () {
     counter++
     if (counter < gameSequence.length) {
       setTimeout(startGame, 1000)
-    } else { setTimeout(function(){turnReady = true}, 1000) }
+    } else {
+      setTimeout(function () {
+        turnReady = true
+      }, 1000)
+    }
   }
 }
 
@@ -150,7 +172,8 @@ randomColors()
 
 // ARROW BUTTON ACTIONS
 
-function pressArrow(e, selector, $color){
+function pressArrow(e, selector) {
+  $color = $(selector)
   e.preventDefault()
   if (turnReady) {
     effect.play()
@@ -167,33 +190,25 @@ function pressArrow(e, selector, $color){
   }
 }
 
-// Up Arrow
+// Combined all arrow key listeners into one if else block
 $('html').keydown(function (e) {
   if (e.which === 38) {
-    pressArrow(e, '#red', red)
+    // Up Arrow
+    pressArrow(e, redSelector)
+  } else if (e.which === 37) {
+    // Left Arrow
+    pressArrow(e, blueSelector)
+  } else if (e.which === 39) {
+    // Right Arrow
+    pressArrow(e, greenSelector)
+  } else if (e.which === 40) {
+    // Down Arrow
+    pressArrow(e, yellowSelector)
   }
 })
 
-// Left Arrow
-$('html').keydown(function (e) {
-  if (e.which === 37) {
-    pressArrow(e, '#blue', blue)
-  }
-})
-
-// Right Arrow
-$('html').keydown(function (e) {
-  if (e.which === 39) {
-    pressArrow(e, '#green', green)
-  }
-})
-
-// Down Arrow
-$('html').keydown(function (e) {
-  if (e.which === 40) {
-    pressArrow(e, '#yellow', yellow)
-  }
-})
+// Commented out code should be left out of master unless there are details
+// added describing why it should remain.
 
 // $('html').keydown(function (e) {
 // if (gameStart === false) {
