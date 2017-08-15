@@ -149,79 +149,49 @@ function startGame () {
 randomColors()
 
 // ARROW BUTTON ACTIONS
+
+function pressArrow(e, selector, $color){
+  e.preventDefault()
+  if (turnReady) {
+    effect.play()
+    setTimeout(function() {
+      effect.pause()
+      effect.load()
+    }, 150)
+    userSequence.push(selector)
+    $color.css('opacity', '1')
+    setTimeout(function () {
+      $color.css('opacity', '.5')
+    }, 200)
+    evaluate()
+  }
+}
+
+// Up Arrow
 $('html').keydown(function (e) {
   if (e.which === 38) {
-    e.preventDefault()
-    if (turnReady) {
-      effect.play()
-      setTimeout(function() {
-        effect.pause()
-        effect.load()
-      }, 150)
-      userSequence.push('#red')
-      red.css('opacity', '1')
-      setTimeout(function () {
-        red.css('opacity', '.5')
-      }, 200)
-      evaluate()
-    }
+    pressArrow(e, '#red', red)
   }
 })
 
+// Left Arrow
 $('html').keydown(function (e) {
   if (e.which === 37) {
-    e.preventDefault()
-    if (turnReady) {
-      effect.play()
-      setTimeout(function() {
-        effect.pause()
-        effect.load()
-      }, 150)
-      userSequence.push('#blue')
-      blue.css('opacity', '1')
-      setTimeout(function () {
-        blue.css('opacity', '.5')
-      }, 200)
-      evaluate()
-    }
+    pressArrow(e, '#blue', blue)
   }
 })
 
+// Right Arrow
 $('html').keydown(function (e) {
   if (e.which === 39) {
-    e.preventDefault()
-    if (turnReady) {
-      effect.play()
-      setTimeout(function() {
-        effect.pause()
-        effect.load()
-      }, 150)
-      userSequence.push('#green')
-      green.css('opacity', '1')
-      setTimeout(function () {
-        green.css('opacity', '.5')
-      }, 200)
-      evaluate()
-    }
+    pressArrow(e, '#green', green)
   }
 })
 
+// Down Arrow
 $('html').keydown(function (e) {
   if (e.which === 40) {
-    e.preventDefault()
-    if (turnReady) {
-      effect.play()
-      setTimeout(function() {
-        effect.pause()
-        effect.load()
-      }, 150)
-      userSequence.push('#yellow')
-      yellow.css('opacity', '1')
-      setTimeout(function () {
-        yellow.css('opacity', '.5')
-      }, 200)
-      evaluate()
-    }
+    pressArrow(e, '#yellow', yellow)
   }
 })
 
